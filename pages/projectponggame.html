@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaos Pong</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+            background: black;
+        }
+
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 24px;
+        }
+
+        #message {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="ui">
+        Score: <span id="score">0</span><br>
+        Controls: <span id="controls">Normal</span>
+    </div>
+
+    <div id="message"></div>
+
+    <canvas id="game"></canvas>
+
+    <script>
+        const canvas = document.getElementById("game");
+        const ctx = canvas.getContext("2d");
+
+        const scoreText = document.getElementById("score");
+        const controlsText = document.getElementById("controls");
+        const message = document.getElementById("message");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let score = 0;
+        let gameOver = false;
+
+        const paddle = {
+            width: 160,
+            height: 20,
+            x: canvas.width / 2 - 80,
+            y: canvas.height - 50,
+            speed: 10
+        };
+
+        const keys = {
+            left: false,
+            right: false
+        };
+
+        let controlsInverted = false;
+
+        const whiteBall = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 12,
+            vx: 5,
+            vy: 5
+        };
+
+        const redBalls = [];
+
+        function createRedBalls() {
+            redBalls.length = 0;
+
+            for (let i = 0; i < 5; i++) {
+                redBalls.push({
+                    x: Math.random() * (canvas.width - 100) + 50,
+                    y: Math.random() * (canvas.height / 2),
+                    radius: 12,
+                    vx: (Math.random() * 4 + 2) * (Math.random() < 0.5 ? -1 : 1),
+                    vy: (Math.random() * 4 + 2) * (Math.random() < 0.5 ? -1 : 1)
+                });
+            }
+        }
+
+        createRedBalls();
+
+        function resetGame() {
+            score = 0;
+            gameOver = false;
+
+            whiteBall.x = canvas.width / 2;
+            whiteBall.y = canvas.height / 2;
+            whiteBall.vx = 5;
+            whiteBall.vy = 5;
+
+            paddle.x = canvas.width / 2 - paddle.width / 2;
+
+            createRedBalls();
+
+            message.style.display = "none";
+            scoreText.textContent = score;
+        }
+
+        function endGame() {
+            gameOver = true;
+
+            message.innerHTML =
+                `GAME OVER<br><br>Final Score: ${score}<br><br>Press SPACE to Restart`;
+
+            message.style.display = "block";
+        }
+
+        function bounce(ball) {
+            if (ball.x - ball.radius <= 0 || ball.x + ball.radius >= canvas.width) {
+                ball.vx *= -1;
+            }
+
+            if (ball.y - ball.radius <= 0) {
+                ball.vy *= -1;
+            }
+        }
+
+        function paddleCollision(ball) {
+            return (
+                ball.x > paddle.x &&
+                ball.x < paddle.x + paddle.width &&
+                ball.y + ball.radius >= paddle.y &&
+                ball.y - ball.radius <= paddle.y + paddle.height
+            );
+        }
+
+        function update() {
+
+            if (gameOver) return;
+
+            if (!controlsInverted) {
+                if (keys.left) paddle.x -= paddle.speed;
+                if (keys.right) paddle.x += paddle.speed;
+            } else {
+                if (keys.left) paddle.x += paddle.speed;
+                if (keys.right) paddle.x -= paddle.speed;
+            }
+
+            paddle.x = Math.max(
+                0,
+                Math.min(canvas.width - paddle.width, paddle.x)
+            );
+
+            whiteBall.x += whiteBall.vx;
+            whiteBall.y += whiteBall.vy;
+
+            bounce(whiteBall);
+
+            if (paddleCollision(whiteBall)) {
+                whiteBall.vy = -Math.abs(whiteBall.vy);
+
+                score++;
+                scoreText.textContent = score;
+
+                whiteBall.vx += whiteBall.vx > 0 ? 0.2 : -0.2;
+                whiteBall.vy -= 0.2;
+            }
+
+            if (whiteBall.y > canvas.height) {
+                endGame();
+            }
+
+            for (const ball of redBalls) {
+
+                ball.x += ball.vx;
+                ball.y += ball.vy;
+
+                bounce(ball);
+
+                if (ball.y + ball.radius >= canvas.height) {
+                    ball.vy *= -1;
+                }
+
+                if (paddleCollision(ball)) {
+                    endGame();
+                }
+            }
+        }
+
+        function draw() {
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "white";
+            ctx.fillRect(
+                paddle.x,
+                paddle.y,
+                paddle.width,
+                paddle.height
+            );
+
+            ctx.beginPath();
+            ctx.arc(
+                whiteBall.x,
+                whiteBall.y,
+                whiteBall.radius,
+                0,
+                Math.PI * 2
+            );
+            ctx.fillStyle = "white";
+            ctx.fill();
+
+            for (const ball of redBalls) {
+                ctx.beginPath();
+                ctx.arc(
+                    ball.x,
+                    ball.y,
+                    ball.radius,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fillStyle = "red";
+                ctx.fill();
+            }
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        document.addEventListener("keydown", e => {
+
+            if (e.key === "ArrowLeft") keys.left = true;
+            if (e.key === "ArrowRight") keys.right = true;
+
+            if (gameOver && e.code === "Space") {
+                resetGame();
+            }
+        });
+
+        document.addEventListener("keyup", e => {
+
+            if (e.key === "ArrowLeft") keys.left = false;
+            if (e.key === "ArrowRight") keys.right = false;
+        });
+
+        setInterval(() => {
+
+            controlsInverted = !controlsInverted;
+
+            controlsText.textContent =
+                controlsInverted ? "INVERTED" : "NORMAL";
+
+        }, 10000);
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        gameLoop();
+    </script>
+
+</body>
+
+</html>

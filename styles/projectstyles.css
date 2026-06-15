@@ -1,0 +1,86 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    text-align: center;
+    font-size: 30px;
+}
+
+h1 {
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 60px;
+}
+
+h2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(0, 76, 0);
+    text-align: center;
+    font-size: 50px;
+}
+
+.bg {
+    position: relative;
+    min-height: 100vh;
+}
+
+.bg::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    min-height: 100vh;
+    background-image: url("https://www.fodors.com/wp-content/uploads/2020/09/04_SurvivorLocations__ShefaVanuatu_shutterstock_1022601406-1400x933.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+    z-index: -1;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 20px;
+}
+
+.left-col {
+    flex: 1;
+    text-align: left;
+    padding-left: 200px;
+}
+
+.right-col {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-right: auto;
+    gap: 20px;
+}
+
+ol {
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto;
+    padding-left: 20px;
+}
+
+ul {
+    padding-left: 20px;
+    text-align: left;
+    list-style-type: disc;
+}
+
+.Style-Points {
+    background-color: rgba(0, 76, 0, 0.6);
+    /* matches your h2 green */
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+
+}

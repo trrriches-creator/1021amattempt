@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taylor Riches – Resume</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #1a2540;
+      --mid: #2d3f66;
+      --accent: #c8a96e;
+      --light: #f5f4f0;
+      --muted: #6b7280;
+      --rule: #ddd8cf;
+      --text: #1e1e1e;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 52px 0 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 0.01em;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-style: italic;
+      font-size: 0.95rem;
+      opacity: 0.75;
+      margin-bottom: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .accent-bar {
+      display: inline-block;
+      width: 48px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 16px;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 24px;
+      font-size: 0.875rem;
+      opacity: 0.85;
+    }
+
+    .contact-row a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-row a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    .section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--navy);
+      margin-bottom: 24px;
+    }
+
+    /* ── Objective ── */
+    .objective-box {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 0.9rem;
+      color: #333;
+      line-height: 1.65;
+    }
+
+    /* ── Entry ── */
+    .entry {
+      margin-bottom: 28px;
+    }
+
+    .entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .entry-org {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+
+    .entry-location {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .entry-sub {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+      margin-bottom: 10px;
+    }
+
+    .entry-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--mid);
+    }
+
+    .entry-date {
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    ul.bullets {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.bullets li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.88rem;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    ul.bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ── Education extras ── */
+    .gpa-badge {
+      display: inline-block;
+      background: var(--navy);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 2px 9px;
+      border-radius: 99px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Skills grid ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .skill-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .skill-card .skill-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ── Awards row ── */
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    .award-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--navy);
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-size: 0.84rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 24px;
+      border-top: 1px solid var(--rule);
+      margin-top: 48px;
+    }
+
+    @media (max-width: 500px) {
+
+      .entry-header,
+      .entry-sub {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Taylor Riches</h1>
+    <div class="tagline">Pre-Law · Business · Provo, UT</div>
+    <div class="accent-bar"></div>
+    <div class="contact-row">
+      <span>435-359-8160</span>
+      <a href="mailto:trr.riches@gmail.com">trr.riches@gmail.com</a>
+      <a href="https://www.linkedin.com/in/taylorrriches2004" target="_blank">linkedin.com/in/taylorrriches2004</a>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <!-- ── OBJECTIVE ── -->
+    <section>
+      <h2 class="section-title">Objective</h2>
+      <div class="objective-box">
+        Highly motivated pre-law student at BYU's Marriott School of Business seeking a legal internship to develop
+        practical skills in a professional legal environment. Committed to accuracy, client confidentiality, and clear
+        communication, with a strong academic foundation and demonstrated record of leadership and service. Long-term
+        goal: a career in business law.
+      </div>
+    </section>
+
+    <!-- ── EDUCATION ── -->
+    <section>
+      <h2 class="section-title">Education</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-org">Brigham Young University – Marriott School of Business</span>
+          <span class="entry-location">Provo, UT</span>
+        </div>
+        <div class="entry-sub">
+          <span class="entry-title">Bachelor of Science in Pre-Business | Pre-Law Track</span>
+          <span class="entry-date">Expected Apr 2029</span>
+        </div>
+        <span class="gpa-badge">GPA 4.00 / 4.00</span>
+        <ul class="bullets">
+          <li>Active member of BYU Pre-Law Student Association, BYU Accounting Society, and BYU Pre-MBA Association</li>
+          <li>Relevant Coursework: ACC 200 – Principles of Accounting I; IS 201 – Introduction to Information Systems;
+            IS 110 – Business Spreadsheets and Analysis</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── EXPERIENCE ── -->
+    <section>
+      <h2 class="section-title">Experience</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-org">McDonald's</span>
+          <span class="entry-location">St. George, UT</span>
+        </div>
+        <div class="entry-sub">
+          <span class="entry-title">Customer Service & Operations Lead</span>
+          <span class="entry-date">Jun 2025 – Mar 2026</span>
+        </div>
+        <ul class="bullets">
+          <li>Identified process inefficiencies and implemented workflow improvements that reduced drive-thru service
+            times by over 50%, demonstrating analytical thinking and attention to operational detail</li>
+          <li>Trained and mentored new team members in customer service standards and procedures; maintained perfect
+            attendance and consistently volunteered for high-demand shifts</li>
+          <li>Resolved customer concerns with professionalism and composure under pressure, earning consistent positive
+            feedback and reducing front-counter delivery times by over 30%</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-org">Megaplex Theatres</span>
+          <span class="entry-location">St. George, UT</span>
+        </div>
+        <div class="entry-sub">
+          <span class="entry-title">Guest Services Associate</span>
+          <span class="entry-date">Jun 2023 – Aug 2023</span>
+        </div>
+        <ul class="bullets">
+          <li>Managed front-of-house client flow from the guest services podium, ensuring a professional and organized
+            experience for all guests</li>
+          <li>Recognized with the <em>Employee of Excellence</em> award for outstanding professionalism, service
+            quality, and reliability</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-org">Crimson Cliffs High School</span>
+          <span class="entry-location">St. George, UT</span>
+        </div>
+        <div class="entry-sub">
+          <span class="entry-title">Event Operations & Ticketing Coordinator</span>
+          <span class="entry-date">Aug 2021 – Apr 2023</span>
+        </div>
+        <ul class="bullets">
+          <li>Managed ticketing logistics and reconciled sales records for large-scale school events, ensuring accurate
+            documentation and smooth operations</li>
+          <li>Coordinated crowd flow and attendee management, maintaining organized, professional event environments
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── LEADERSHIP & SERVICE ── -->
+    <section>
+      <h2 class="section-title">Leadership &amp; Service</h2>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-org">The Church of Jesus Christ of Latter-day Saints</span>
+          <span class="entry-location">Mesa, AZ</span>
+        </div>
+        <div class="entry-sub">
+          <span class="entry-title">Volunteer Representative &amp; Team Leader</span>
+          <span class="entry-date">Aug 2023 – Aug 2025</span>
+        </div>
+        <ul class="bullets">
+          <li>Led and mentored teams of 2–6 individuals, setting weekly performance goals, providing feedback, and
+            holding team members accountable to measurable outcomes</li>
+          <li>Managed a structured schedule of client interactions and outreach across assigned geographic areas,
+            maintaining detailed records and adapting strategies based on results</li>
+          <li>Developed strong interpersonal communication and conflict resolution skills through daily engagement with
+            individuals from diverse cultural and socioeconomic backgrounds</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-org">Superstition Community Food Bank</span>
+          <span class="entry-location">Mesa, AZ</span>
+        </div>
+        <div class="entry-sub">
+          <span class="entry-title">Client Services Volunteer</span>
+          <span class="entry-date">Feb 2024 – Jun 2024</span>
+        </div>
+        <ul class="bullets">
+          <li>Managed client check-in and intake processes, maintaining accurate records and protecting the
+            confidentiality of sensitive personal information</li>
+          <li>Supported efficient, dignified service delivery for community members, exercising discretion and
+            professionalism at all times</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-org">Tan's Treats</span>
+          <span class="entry-location">St. George, UT</span>
+        </div>
+        <div class="entry-sub">
+          <span class="entry-title">Community Food Drive Organizer</span>
+          <span class="entry-date">May 2021 – May 2023</span>
+        </div>
+        <ul class="bullets">
+          <li>Planned and executed community food drives by coordinating volunteers, managing logistics, and overseeing
+            distribution operations</li>
+          <li>Led outreach campaigns that expanded community participation and increased donation volume year over year
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section>
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <span class="skill-label">Professional</span>
+          Written &amp; verbal communication, confidentiality &amp; discretion, client-facing professionalism
+        </div>
+        <div class="skill-card">
+          <span class="skill-label">Research &amp; Analysis</span>
+          Legal &amp; business research, document review, data entry &amp; recordkeeping, attention to detail
+        </div>
+        <div class="skill-card">
+          <span class="skill-label">Technology</span>
+          Microsoft Excel (automation &amp; analysis), SQL, Tableau, database modeling, flowcharting, web development
+        </div>
+        <div class="skill-card">
+          <span class="skill-label">Leadership</span>
+          Team mentorship, goal setting, project coordination, conflict resolution
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HONORS & AWARDS ── -->
+    <section>
+      <h2 class="section-title">Honors &amp; Awards</h2>
+      <div class="awards-grid">
+        <div class="award-card">2023 AP Scholar with Distinction Award</div>
+        <div class="award-card">2023 Megaplex Theatres Employee of Excellence</div>
+        <div class="award-card">2022 Utah DECA Event Finalist</div>
+        <div class="award-card">2023 All State Wind Symphony Award of Merit</div>
+        <div class="award-card">2023 Louis Armstrong Jazz Award</div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>Taylor Riches &nbsp;·&nbsp; Resume</footer>
+
+</body>
+
+</html>
